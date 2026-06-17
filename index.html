@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>PlayTheory — Coming Soon</title>
+<meta name="description" content="Finally understand music theory — on your instrument. Interactive theory for guitar, bass & piano. Join the waitlist." />
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Sora:wght@500;600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{ --primary:262 90% 66%; --good:152 64% 46%; --bg:#0a0a12; --text:#ECECF4; --muted:#9A9AB2; }
+  *{box-sizing:border-box;}
+  html,body{margin:0;height:100%;}
+  body{background:radial-gradient(130% 100% at 50% -20%, #1a1530 0%, var(--bg) 55%);color:var(--text);
+    font-family:'Inter',-apple-system,BlinkMacSystemFont,sans-serif;display:flex;flex-direction:column;align-items:center;justify-content:center;min-height:100vh;padding:32px 22px;text-align:center;overflow-x:hidden;}
+  .glow{position:fixed;top:-220px;left:50%;transform:translateX(-50%);width:680px;height:520px;border-radius:50%;background:radial-gradient(circle, hsl(var(--primary)/.30), transparent 65%);filter:blur(40px);pointer-events:none;z-index:0;}
+  .wrap{position:relative;z-index:1;width:100%;max-width:560px;}
+  .brand{display:inline-flex;align-items:center;gap:10px;font-family:'Sora';font-weight:700;font-size:20px;letter-spacing:-.01em;margin-bottom:30px;}
+  .brand .dot{width:13px;height:13px;border-radius:50%;background:radial-gradient(circle at 34% 30%, #c9a7ff, hsl(var(--primary)) 65%, #6f33e0);box-shadow:0 0 16px hsl(var(--primary)/.8);}
+  .badge{display:inline-block;font-size:12px;font-weight:600;letter-spacing:.16em;text-transform:uppercase;color:#cdb8ff;background:hsl(var(--primary)/.12);border:1px solid hsl(var(--primary)/.35);border-radius:999px;padding:7px 14px;margin-bottom:22px;}
+  h1{font-family:'Sora';font-weight:700;font-size:clamp(30px,6vw,46px);line-height:1.08;letter-spacing:-.02em;margin:0 0 16px;}
+  h1 .em{background:linear-gradient(90deg,#c9a7ff,hsl(var(--primary)));-webkit-background-clip:text;background-clip:text;color:transparent;}
+  .sub{font-size:17px;line-height:1.55;color:var(--muted);margin:0 auto 30px;max-width:460px;}
+  form{display:flex;flex-direction:column;gap:12px;max-width:420px;margin:0 auto;}
+  .chips{display:flex;gap:8px;justify-content:center;flex-wrap:wrap;margin-bottom:4px;}
+  .chip{font-size:14px;font-weight:600;color:var(--muted);background:#16161f;border:1px solid #2a2a38;border-radius:999px;padding:9px 18px;cursor:pointer;transition:.12s;}
+  .chip.on{color:#fff;background:hsl(var(--primary)/.18);border-color:hsl(var(--primary));box-shadow:0 0 16px hsl(var(--primary)/.4);}
+  .row{display:flex;gap:10px;}
+  input[type=email]{flex:1;min-width:0;font-size:16px;font-family:inherit;color:var(--text);background:#15151f;border:1px solid #2a2a38;border-radius:12px;padding:14px 16px;outline:none;transition:.12s;}
+  input[type=email]:focus{border-color:hsl(var(--primary));box-shadow:0 0 0 3px hsl(var(--primary)/.25);}
+  button.cta{font-size:16px;font-weight:700;font-family:'Sora';color:#fff;background:linear-gradient(180deg,hsl(var(--primary)),#6f33e0);border:none;border-radius:12px;padding:14px 22px;cursor:pointer;white-space:nowrap;box-shadow:0 8px 24px hsl(var(--primary)/.35);transition:.12s;}
+  button.cta:hover{filter:brightness(1.07);} button.cta:disabled{opacity:.6;cursor:default;}
+  .note{font-size:12.5px;color:#74748a;margin-top:14px;}
+  .ok{display:none;flex-direction:column;align-items:center;gap:10px;}
+  .ok .check{width:54px;height:54px;border-radius:50%;display:grid;place-items:center;font-size:26px;background:hsl(var(--good)/.15);border:1.5px solid hsl(var(--good));color:hsl(var(--good));}
+  .ok h2{font-family:'Sora';font-size:24px;margin:6px 0 4px;}
+  .ok p{color:var(--muted);margin:0;font-size:15px;}
+  .err{color:#ff8585;font-size:13.5px;min-height:18px;margin-top:6px;}
+  footer{margin-top:40px;font-size:12.5px;color:#5e5e72;}
+  footer a{color:#8a8aa0;text-decoration:none;}
+</style>
+</head>
+<body>
+  <div class="glow"></div>
+  <div class="wrap">
+    <div class="brand"><span class="dot"></span>PlayTheory</div>
+    <div class="badge">Coming soon</div>
+    <h1>Finally <span class="em">understand</span> music theory — on your instrument.</h1>
+    <p class="sub">Interactive theory for <b style="color:#cdb8ff">guitar, bass &amp; piano</b>. PlayTheory listens to what you play and teaches you <i>why</i> it works — note by note. Be first in line.</p>
+
+    <form id="form">
+      <div class="chips" id="chips">
+        <span class="note" style="width:100%;margin:0 0 4px;color:#8a8aa0;">What do you play? (optional)</span>
+        <button type="button" class="chip" data-inst="guitar">🎸 Guitar</button>
+        <button type="button" class="chip" data-inst="bass">🎵 Bass</button>
+        <button type="button" class="chip" data-inst="piano">🎹 Piano</button>
+      </div>
+      <div class="row">
+        <input id="email" type="email" placeholder="your@email.com" autocomplete="email" required />
+        <button class="cta" id="submit" type="submit">Join the waitlist</button>
+      </div>
+      <div class="err" id="err"></div>
+    </form>
+
+    <div class="ok" id="ok">
+      <div class="check">✓</div>
+      <h2>You're on the list 🎸</h2>
+      <p>We'll email you the moment PlayTheory goes live.</p>
+    </div>
+
+    <div class="note">No spam. Just a single heads-up when it launches.</div>
+    <footer>From the team behind <a href="https://www.musiciangoods.com">Musician&nbsp;Goods</a></footer>
+  </div>
+
+<script>
+  // ── Klaviyo config ──
+  const KLAVIYO_PUBLIC_KEY = "XrjwJH";          // Musician Goods public key
+  const WAITLIST_LIST_ID   = "R5dQRF";          // "PT - Waiting list" in Klaviyo
+
+  let instrument = null;
+  document.querySelectorAll('.chip').forEach(c=>c.onclick=()=>{
+    const was=c.classList.contains('on');
+    document.querySelectorAll('.chip').forEach(x=>x.classList.remove('on'));
+    if(!was){ c.classList.add('on'); instrument=c.dataset.inst; } else { instrument=null; }
+  });
+
+  const form=document.getElementById('form'), err=document.getElementById('err'), btn=document.getElementById('submit');
+  form.addEventListener('submit', async (e)=>{
+    e.preventDefault(); err.textContent='';
+    const email=document.getElementById('email').value.trim();
+    if(!/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(email)){ err.textContent='Please enter a valid email.'; return; }
+    if(WAITLIST_LIST_ID==='PASTE_LIST_ID'){ err.textContent='Setup: add your Klaviyo list ID first.'; return; }
+    btn.disabled=true; btn.textContent='Joining…';
+    const profileAttrs={ email }; if(instrument) profileAttrs.properties={ primary_instrument:instrument, source:'playtheory_waitlist' };
+    try{
+      const res=await fetch('https://a.klaviyo.com/client/subscriptions/?company_id='+KLAVIYO_PUBLIC_KEY,{
+        method:'POST',
+        headers:{ 'Content-Type':'application/json', 'revision':'2024-10-15' },
+        body:JSON.stringify({ data:{ type:'subscription',
+          attributes:{ profile:{ data:{ type:'profile', attributes:profileAttrs } } },
+          relationships:{ list:{ data:{ type:'list', id:WAITLIST_LIST_ID } } } } })
+      });
+      if(res.status===202 || res.ok){ form.style.display='none'; document.getElementById('ok').style.display='flex'; }
+      else { const t=await res.text(); err.textContent='Something went wrong — try again.'; console.error('Klaviyo error',res.status,t); btn.disabled=false; btn.textContent='Join the waitlist'; }
+    }catch(ex){ err.textContent='Network error — try again.'; console.error(ex); btn.disabled=false; btn.textContent='Join the waitlist'; }
+  });
+</script>
+</body>
+</html>
